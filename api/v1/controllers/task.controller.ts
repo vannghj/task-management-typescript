@@ -117,3 +117,37 @@ export const changeMulti = async (req, res) => {
         })
     }
 }
+export const create = async (req, res) => {
+    try{
+        const task = new Task(req.body);
+        const data = await task.save();
+        res.json({
+            code: 400,
+            message: "Tao thanh cong",
+            data: data
+        });
+    } catch (error) {
+        res.json({
+            code: 400,
+            message: "Khong ton tai"
+        })
+    }
+}
+export const edit = async (req, res) => {
+    try{
+        const id:string = req.params.id;
+        await Task.updateOne({
+            _id: id
+        }, req.body);
+        res.json({
+            code: 400,
+            message: "cap nhat thanh cong",
+        });
+    } catch (error) {
+        res.json({
+            code: 400,
+            message: "Khong ton tai"
+        })
+    }
+}
+
