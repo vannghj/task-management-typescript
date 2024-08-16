@@ -74,3 +74,46 @@ export const changeStatus  = async (req: Request, res:Response) =>{
         })
     }
 }
+export const changeMulti = async (req, res) => {
+    try{
+        const ids: string[] = req.body.ids;
+        const key: string = req.body.key;
+        const value: string = req.body.value;
+        switch (key) {
+            case "status" :
+                await Task.updateMany({
+                    _id: {$in: ids}
+                }, {
+                    status: value
+                });
+                res.json({
+                    code: 200,
+                    message: "Cap nhat trang thai thanh cong"
+                })
+                break;
+            case "delete":
+                await Task.updateMany({
+                    _id: {$in: ids}
+                }, {
+                    deleted: true,
+                    deleteAt: new Date()
+                });
+                res.json({
+                    code: 200,
+                    message: "Cap nhat trang thai thanh cong"
+                })
+                break;
+            default:
+                res.json({
+                    code: 400,
+                    message: "Khong ton tai"
+                });
+                break;
+        }
+    } catch (error) {
+        res.json({
+            code: 400,
+            message: "Khong ton tai"
+        })
+    }
+}
