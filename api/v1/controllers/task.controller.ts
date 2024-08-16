@@ -100,7 +100,7 @@ export const changeMulti = async (req, res) => {
                 });
                 res.json({
                     code: 200,
-                    message: "Cap nhat trang thai thanh cong"
+                    message: "Xoa thanh cong"
                 })
                 break;
             default:

@@ -2,6 +2,7 @@ import express, { Express, Request, Response} from "express";
 import dotenv from "dotenv"
 import * as database from "./config/database"
 import mainV1routes from "./api/v1/routes/index.route";
+import cors from "cors";
 import bodyParser from "body-parser";
 dotenv.config();
 database.connect();
@@ -11,6 +12,8 @@ const port:number | string = process.env.PORT;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
+
+app.use(cors());
 
 mainV1routes(app);
 app.listen(port, ()=> {
